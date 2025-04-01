@@ -43,6 +43,7 @@
 #ifndef _CPUHOOK_H_
 #define _CPUHOOK_H_
 
+
 typedef enum {
   HOOK_ANY      = (0 << 0),
   
