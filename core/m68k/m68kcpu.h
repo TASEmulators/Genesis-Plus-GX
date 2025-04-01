@@ -899,9 +899,8 @@ INLINE uint m68ki_read_32(uint address)
   else val = m68k_read_immediate_32(address);
 
 #ifdef HOOK_CPU
-  if (UNLIKELY(cpu_hook)) {
+  if (UNLIKELY(cpu_hook))
     val = cpu_hook(HOOK_M68K_R, 4, address, val);
-  }
 #endif
 
   return val;
