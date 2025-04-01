@@ -860,7 +860,7 @@ INLINE uint m68ki_read_8(uint address)
 
 #ifdef HOOK_CPU
   if (UNLIKELY(cpu_hook))
-    cpu_hook(HOOK_M68K_R, 1, address, val);
+    val = cpu_hook(HOOK_M68K_R, 1, address, val);
 #endif
 
   return val;
@@ -880,7 +880,7 @@ INLINE uint m68ki_read_16(uint address)
 
 #ifdef HOOK_CPU
   if (UNLIKELY(cpu_hook))
-    cpu_hook(HOOK_M68K_R, 2, address, val);
+    val = cpu_hook(HOOK_M68K_R, 2, address, val);
 #endif
 
   return val;
@@ -899,8 +899,9 @@ INLINE uint m68ki_read_32(uint address)
   else val = m68k_read_immediate_32(address);
 
 #ifdef HOOK_CPU
-  if (UNLIKELY(cpu_hook))
-    cpu_hook(HOOK_M68K_R, 4, address, val);
+  if (UNLIKELY(cpu_hook)) {
+    val = cpu_hook(HOOK_M68K_R, 4, address, val);
+  }
 #endif
 
   return val;
@@ -914,7 +915,7 @@ INLINE void m68ki_write_8(uint address, uint value)
 
 #ifdef HOOK_CPU
   if (UNLIKELY(cpu_hook))
-    cpu_hook(HOOK_M68K_W, 1, address, value);
+    value = cpu_hook(HOOK_M68K_W, 1, address, value);
 #endif
 
   temp = &m68ki_cpu.memory_map[((address)>>16)&0xff];
@@ -937,7 +938,7 @@ INLINE void m68ki_write_16(uint address, uint value)
 
 #ifdef HOOK_CPU
   if (UNLIKELY(cpu_hook))
-    cpu_hook(HOOK_M68K_W, 2, address, value);
+    value = cpu_hook(HOOK_M68K_W, 2, address, value);
 #endif
 
   temp = &m68ki_cpu.memory_map[((address)>>16)&0xff];
@@ -960,7 +961,7 @@ INLINE void m68ki_write_32(uint address, uint value)
 
 #ifdef HOOK_CPU
   if (UNLIKELY(cpu_hook))
-    cpu_hook(HOOK_M68K_W, 4, address, value);
+    value = cpu_hook(HOOK_M68K_W, 4, address, value);
 #endif
 
   temp = &m68ki_cpu.memory_map[((address)>>16)&0xff];

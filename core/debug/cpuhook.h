@@ -43,6 +43,8 @@
 #ifndef _CPUHOOK_H_
 #define _CPUHOOK_H_
 
+#include "types.h"
+
 
 typedef enum {
   HOOK_ANY      = (0 << 0),
@@ -80,12 +82,12 @@ typedef enum {
 
 /* CPU hook is called on read, write, and execute.
  */
-void (*cpu_hook)(hook_type_t type, int width, unsigned int address, unsigned int value);
+unsigned int (*cpu_hook)(hook_type_t type, int width, unsigned int address, unsigned int value);
 
 /* Use set_cpu_hook() to assign a callback that can process the data provided
  * by cpu_hook().
  */
-void set_cpu_hook(void(*hook)(hook_type_t type, int width, unsigned int address, unsigned int value));
+void set_cpu_hook(unsigned int(*hook)(hook_type_t type, int width, unsigned int address, unsigned int value));
 
 
 #endif /* _CPUHOOK_H_ */
